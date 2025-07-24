@@ -31,7 +31,7 @@ include_once("inc/inc_fungsi.php");
                     <?php if(isset($_SESSION['members_nama_lengkap'])){
                         echo "<a href='".url_dasar()."/ganti_profile.php'>".$_SESSION['members_nama_lengkap']."</a> | <a href='".url_dasar()."/logout.php'>Logout</a>";
                     }else{?>
-                        
+                        <a href="pendaftaran.php" class="tbl-biru">Sign Up</a>
                     <?php } ?>
                     </li>
                 </ul>

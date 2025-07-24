@@ -26,7 +26,7 @@
         <p class="deskripsi"><?php echo ambil_kutipan('11') ?></p>
         <h2><?php echo ambil_judul('11') ?></h2>
         <?php echo maximum_kata(ambil_isi('11'), 30) ?>
-        <p><a href="<?php echo buat_link_halaman('11') ?>" class="tbl-biru">Pengajuan Proposal </a></p>
+        <p><a href="form_input_npsn.php" class="tbl-biru">Pengajuan Proposal </a></p>
     </div>
     <img src="<?php echo ambil_gambar('11') ?>" />
 </section>

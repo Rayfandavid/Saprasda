@@ -49,25 +49,45 @@ include("../inc/inc_fungsi.php");
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="halaman.php">Halaman</a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="halaman.php">
+                                <i class="fas fa-home"></i> Halaman
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="tutors.php">Tutors</a>
+                            <a class="nav-link" href="tutors.php">
+                                <i class="fas fa-chalkboard-teacher"></i> Tutors
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="partners.php">Partner</a>
+                            <a class="nav-link" href="partners.php">
+                                <i class="fas fa-handshake"></i> Partner
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="info.php">Contact</a>
+                            <a class="nav-link" href="info.php">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="members.php">Members</a>
+                            <a class="nav-link" href="members.php">
+                                <i class="fas fa-users"></i> Members
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ganti_profile.php">Ganti Password</a>
+                            <a class="nav-link" href="data_laporan.php">
+                                <i class="fas fa-file-alt"></i> Laporan Sekolah
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="logout.php">Logout>></a>
+                            <a class="nav-link" href="ganti_profile.php">
+                                <i class="fas fa-key"></i> Ganti Password
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
                         </li>
                     </ul>
                 </div>
