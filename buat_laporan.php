@@ -881,98 +881,98 @@
             <tbody>
              <tr>
                 <td>Pembangunan Sarana, Prasarana dan Utilitas</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Penyediaan Mebel Kelas</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Pengadaan Ruang Kelas Baru (RKB)</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang, Berat Ruang Kelas Sekolah</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Penyedia Alat Praktik & Peraga Peserta Didik</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <<td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang kelas Baru</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang Guru, Kepala Sekolah, TU</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang Unit Kesehatan Sekolah (UKS)</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang Berat Ruang Unit Kesehatan Sekolah (UKS)</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang Berat Perpustakaan Sekolah</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
                <tr>
                 <td>Pengadaan Perlengkapan Kelas</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
                <tr>
                 <td>Pembangunan Laboratorium Sekolah</td>
-                <td><input type="file" name="kebutuhan_usaha[0][surat_permohonan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][foto_kondisi]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][denah_ruangan]"></td>
-                <td><input type="file" name="kebutuhan_usaha[0][rab_kebutuhan]"></td>
+                <td><input type="file" name="file_surat_permohonan[]" /></td>
+                <td><input type="file" name="file_foto_kondisi[]" /></td>
+                <td><input type="file" name="file_denah_ruangan[]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
                 <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
               </tr>
             </tbody>

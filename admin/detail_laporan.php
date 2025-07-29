@@ -107,100 +107,139 @@ $data_sekolah = mysqli_fetch_assoc($result_identitas);
     </div>
 
     <!-- Laporan Prasarana -->
-    <h3>Laporan Prasarana</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Jenis</th>
-                <th>Baik</th>
-                <th>Ringan</th>
-                <th>Sedang</th>
-                <th>Berat</th>
-                <th>Catatan</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $q = mysqli_query($koneksi, "SELECT * FROM laporan_prasarana WHERE npsn='$npsn'");
-        if ($q && mysqli_num_rows($q) > 0) {
-            while ($r = mysqli_fetch_assoc($q)) {
-                echo "<tr>
-                    <td>" . htmlspecialchars($r['jenis'] ?? '') . "</td>
-                    <td>" . htmlspecialchars($r['kondisi_baik'] ?? '0') . "</td>
-                    <td>" . htmlspecialchars($r['kondisi_ringan'] ?? '0') . "</td>
-                    <td>" . htmlspecialchars($r['kondisi_sedang'] ?? '0') . "</td>
-                    <td>" . htmlspecialchars($r['kondisi_berat'] ?? '0') . "</td>
-                    <td>" . htmlspecialchars($r['detail'] ?? '') . "</td>
-                </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada data prasarana</td></tr>";
-        }
-        ?>
-        </tbody>
-    </table>
+<h3>Laporan Prasarana</h3>
+<?php
+// Ambil semua tanggal laporan yang unik
+$tanggal_query = mysqli_query($koneksi, "SELECT DISTINCT tanggal_lapor FROM laporan_prasarana WHERE npsn='$npsn' ORDER BY tanggal_lapor DESC");
 
-    <!-- Laporan Sarana -->
-    <h3>Laporan Sarana</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Jenis</th>
-                <th>Kondisi</th>
-                <th>Catatan</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $q = mysqli_query($koneksi, "SELECT * FROM laporan_sarana WHERE npsn='$npsn'");
-        if ($q && mysqli_num_rows($q) > 0) {
-            while ($r = mysqli_fetch_assoc($q)) {
-                echo "<tr>
-                    <td>" . htmlspecialchars($r['jenis'] ?? '') . "</td>
-                    <td>" . htmlspecialchars($r['kondisi'] ?? '') . "</td>
-                    <td>" . htmlspecialchars($r['detail'] ?? '') . "</td>
-                </tr>";
-            }
-        } else {
-            echo "<tr><td colspan='3' style='text-align:center;'>Tidak ada data sarana</td></tr>";
-        }
-        ?>
-        </tbody>
-    </table>
+if ($tanggal_query && mysqli_num_rows($tanggal_query) > 0) {
+    while ($row_tanggal = mysqli_fetch_assoc($tanggal_query)) {
+        $tanggal = $row_tanggal['tanggal_lapor'];
 
-    <!-- Kebutuhan Usaha -->
-    <h3>Kebutuhan Usaha</h3>
-    <table>
-        <thead>
-            <tr>
-                <th>Jenis</th>
-                <th>Surat</th>
-                <th>Foto</th>
-                <th>Denah</th>
-                <th>RAB</th>
-                <th>Detail</th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $q = mysqli_query($koneksi, "SELECT * FROM kebutuhan_usaha WHERE npsn='$npsn'");
+        echo "<h4 style='margin-top:24px; margin-bottom:8px; color:#0f172a;'>Tanggal Lapor: " . htmlspecialchars($tanggal) . "</h4>";
+        echo "<table>
+                <thead>
+                    <tr>
+                        <th>Jenis</th>
+                        <th>Baik</th>
+                        <th>Ringan</th>
+                        <th>Sedang</th>
+                        <th>Berat</th>
+                        <th>Catatan</th>
+                    </tr>
+                </thead>
+                <tbody>";
+
+        // Ambil data prasarana untuk tanggal tersebut
+        $laporan_query = mysqli_query($koneksi, "SELECT * FROM laporan_prasarana WHERE npsn='$npsn' AND tanggal_lapor='$tanggal'");
+        if ($laporan_query && mysqli_num_rows($laporan_query) > 0) {
+            while ($r = mysqli_fetch_assoc($laporan_query)) {
+                echo "<tr>
+                        <td>" . htmlspecialchars($r['jenis']) . "</td>
+                        <td>" . htmlspecialchars($r['kondisi_baik']) . "</td>
+                        <td>" . htmlspecialchars($r['kondisi_ringan']) . "</td>
+                        <td>" . htmlspecialchars($r['kondisi_sedang']) . "</td>
+                        <td>" . htmlspecialchars($r['kondisi_berat']) . "</td>
+                        <td>" . htmlspecialchars($r['detail']) . "</td>
+                    </tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada data pada tanggal ini</td></tr>";
+        }
+
+        echo "</tbody></table>";
+    }
+} else {
+    echo "<p style='text-align:center;'>Tidak ada data prasarana</p>";
+}
+?>
+
+
+   <!-- Laporan Sarana -->
+<h3>Laporan Sarana</h3>
+<?php
+$tanggal_query = mysqli_query($koneksi, "SELECT DISTINCT tanggal_lapor FROM laporan_sarana WHERE npsn='$npsn' ORDER BY tanggal_lapor DESC");
+
+if ($tanggal_query && mysqli_num_rows($tanggal_query) > 0) {
+    while ($row_tanggal = mysqli_fetch_assoc($tanggal_query)) {
+        $tanggal = $row_tanggal['tanggal_lapor'];
+
+        echo "<h4 style='margin-top:24px; margin-bottom:8px; color:#0f172a;'>Tanggal Lapor: " . htmlspecialchars($tanggal) . "</h4>";
+        echo "<table>
+                <thead>
+                    <tr>
+                        <th>Jenis</th>
+                        <th>Kondisi</th>
+                        <th>Catatan</th>
+                    </tr>
+                </thead>
+                <tbody>";
+
+        $q = mysqli_query($koneksi, "SELECT * FROM laporan_sarana WHERE npsn='$npsn' AND tanggal_lapor='$tanggal'");
         if ($q && mysqli_num_rows($q) > 0) {
             while ($r = mysqli_fetch_assoc($q)) {
                 echo "<tr>
-                    <td>" . htmlspecialchars($r['jenis_kebutuhan'] ?? '') . "</td>
-                    <td><a class='link' href='" . htmlspecialchars($r['file_surat_permohonan'] ?? '') . "' target='_blank'></a></td>
-                    <td><a class='link' href='" . htmlspecialchars($r['file_foto_kondisi'] ?? '#') . "' target='_blank'></a></td>
-                    <td><a class='link' href='" . htmlspecialchars($r['file_denah_ruangan'] ?? '#') . "' target='_blank'></a></td>
-                    <td><a class='link' href='" . htmlspecialchars($r['file_rab_kebutuhan'] ?? '#') . "' target='_blank'></a></td>
-                    <td>" . htmlspecialchars($r['detail'] ?? '') . "</td>
-                </tr>";
+                        <td>" . htmlspecialchars($r['jenis'] ?? '') . "</td>
+                        <td>" . htmlspecialchars($r['kondisi'] ?? '') . "</td>
+                        <td>" . htmlspecialchars($r['detail'] ?? '') . "</td>
+                    </tr>";
             }
         } else {
-            echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada data kebutuhan usaha</td></tr>";
+            echo "<tr><td colspan='3' style='text-align:center;'>Tidak ada data</td></tr>";
         }
-        ?>
-        </tbody>
-    </table>
-</div>
+
+        echo "</tbody></table>";
+    }
+} else {
+    echo "<p style='text-align:center;'>Tidak ada data sarana</p>";
+}
+?>
+
+<!-- Kebutuhan Usaha -->
+<!-- Kebutuhan Usaha -->
+<h3>Kebutuhan Usaha</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Jenis</th>
+            <th>Surat</th>
+            <th>Foto</th>
+            <th>Denah</th>
+            <th>RAB</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+    $q = mysqli_query($koneksi, "SELECT * FROM kebutuhan_usaha WHERE npsn='$npsn'");
+    if ($q && mysqli_num_rows($q) > 0) {
+        while ($r = mysqli_fetch_assoc($q)) {
+            $file_surat = htmlspecialchars($r['file_surat_permohonan']);
+            $file_foto  = htmlspecialchars($r['file_foto_kondisi']);
+            $file_denah = htmlspecialchars($r['file_denah_ruangan']);
+            $file_rab   = htmlspecialchars($r['file_rab_kebutuhan']);
+            
+            // Ambil hanya nama file
+            $surat_name = basename($file_surat);
+            $foto_name  = basename($file_foto);
+            $denah_name = basename($file_denah);
+            $rab_name   = basename($file_rab);
+
+            echo "<tr>
+                <td>" . htmlspecialchars($r['jenis_kebutuhan'] ?? '') . "</td>
+                <td>" . (!empty($file_surat) ? "<a class='link' href='download.php?file=$surat_name'>Download</a>" : "-") . "</td>
+                <td>" . (!empty($file_foto) ? "<a class='link' href='download.php?file=$foto_name'>Download</a>" : "-") . "</td>
+                <td>" . (!empty($file_denah) ? "<a class='link' href='download.php?file=$denah_name'>Download</a>" : "-") . "</td>
+                <td>" . (!empty($file_rab) ? "<a class='link' href='download.php?file=$rab_name'>Download</a>" : "-") . "</td>
+                <td>" . htmlspecialchars($r['detail'] ?? '') . "</td>
+            </tr>";
+        }
+    } else {
+        echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada data kebutuhan usaha</td></tr>";
+    }
+    ?>
+    </tbody>
+</table>
+
 </body>
 </html>

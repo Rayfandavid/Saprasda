@@ -11,25 +11,51 @@
     $kelurahan  = mysqli_real_escape_string($koneksi, $_POST['kelurahan']);
     $status     = mysqli_real_escape_string($koneksi, $_POST['status']);
 
-    // Cek apakah NPSN sudah ada
-    $sql_cek = "SELECT * FROM daftar_sd WHERE NPSN = '$npsn'";
-    $q_cek   = mysqli_query($koneksi, $sql_cek);
+    // Cek apakah NPSN sudah ada di daftar_sd
+$sql_cek_sd = "SELECT 1 FROM daftar_sd WHERE NPSN = '$npsn'";
+$result_sd = mysqli_query($koneksi, $sql_cek_sd);
 
-    // Fungsi upload file
-    function uploadFile($fieldName) {
-        if (isset($_FILES[$fieldName]) && $_FILES[$fieldName]['error'] === UPLOAD_ERR_OK) {
-            $filename  = time() . "_" . basename($_FILES[$fieldName]["name"]);
-            $targetDir = "uploads/";
-            if (!file_exists($targetDir)) {
-                mkdir($targetDir, 0777, true);
-            }
-            $targetPath = $targetDir . $filename;
-            if (move_uploaded_file($_FILES[$fieldName]["tmp_name"], $targetPath)) {
-                return $filename;
-            }
-        }
-        return null;
+// Jika tidak ada, cek ke daftar_smp
+if (mysqli_num_rows($result_sd) == 0) {
+    $sql_cek_smp = "SELECT * FROM daftar_smp WHERE NPSN = '$npsn'";
+    $result_smp = mysqli_query($koneksi, $sql_cek_smp);
+    if (mysqli_num_rows($result_smp) > 0) {
+        $data_smp = mysqli_fetch_assoc($result_smp);
+
+        // Masukkan data dari SMP ke SD agar bisa lolos foreign key
+        $sql_insert_sd = "INSERT INTO daftar_sd (NPSN, Nama_Sekolah, Alamat, Kecamatan, Kelurahan, Status) VALUES (
+            '{$data_smp['NPSN']}', 
+            '".mysqli_real_escape_string($koneksi, $data_smp['Nama_Sekolah'])."', 
+            '".mysqli_real_escape_string($koneksi, $data_smp['Alamat'])."', 
+            '".mysqli_real_escape_string($koneksi, $data_smp['Kecamatan'])."', 
+            '".mysqli_real_escape_string($koneksi, $data_smp['Kelurahan'])."', 
+            '{$data_smp['Status']}'
+        )";
+        mysqli_query($koneksi, $sql_insert_sd);
     }
+}
+
+
+
+
+function uploadFileArray($fileArray, $index) {
+    if (isset($fileArray['name'][$index]) && $fileArray['error'][$index] == 0) {
+        $targetDir = "uploads/";
+        // Pastikan folder uploads ada dan writable
+        if (!is_dir($targetDir)) {
+            mkdir($targetDir, 0755, true);
+        }
+        $filename = time() . "_" . basename($fileArray['name'][$index]);
+        $targetFile = $targetDir . $filename;
+        if (move_uploaded_file($fileArray['tmp_name'][$index], $targetFile)) {
+            return $targetFile;
+        } else {
+            error_log("Gagal upload file: " . $fileArray['tmp_name'][$index]);
+            return ""; // Kembalikan string kosong jika gagal
+        }
+    }
+    return "";
+}
 
     // Simpan ke riwayat_laporan
     $sql_riwayat = "INSERT INTO riwayat_laporan (
@@ -101,18 +127,18 @@
 ];
 
 foreach ($jenis_kebutuhan_list as $index => $jenis) {
-    $surat_permohonan = uploadFile("kebutuhan_usaha[$index][surat_permohonan]");
-    $foto_kondisi     = uploadFile("kebutuhan_usaha[$index][foto_kondisi]");
-    $denah_ruangan    = uploadFile("kebutuhan_usaha[$index][denah_ruangan]");
-    $rab_kebutuhan    = uploadFile("kebutuhan_usaha[$index][rab_kebutuhan]");
+    $surat_permohonan = uploadFileArray($_FILES['file_surat_permohonan'], $index);
+    $foto_kondisi     = uploadFileArray($_FILES['file_foto_kondisi'], $index);
+    $denah_ruangan    = uploadFileArray($_FILES['file_denah_ruangan'], $index);
+    $rab_kebutuhan    = uploadFileArray($_FILES['file_rab_kebutuhan'], $index);
     $detail           = mysqli_real_escape_string($koneksi, $_POST['kebutuhan_usaha'][$index]['detail'] ?? '');
 
-
     $sql = "INSERT INTO kebutuhan_usaha 
-            (npsn, nama_sekolah, jenis_kebutuhan, file_surat_permohonan, file_foto_kondisi, file_denah_ruangan, file_rab_kebutuhan, detail)
-            VALUES ('$npsn', '$nama', '$jenis', '$surat_permohonan', '$foto_kondisi', '$denah_ruangan', '$rab_kebutuhan', '$detail')";
+        (npsn, nama_sekolah, jenis_kebutuhan, file_surat_permohonan, file_foto_kondisi, file_denah_ruangan, file_rab_kebutuhan, detail)
+        VALUES ('$npsn', '$nama', '$jenis', '$surat_permohonan', '$foto_kondisi', '$denah_ruangan', '$rab_kebutuhan', '$detail')";
     mysqli_query($koneksi, $sql);
 }
+
     ?>
 
 

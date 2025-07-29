@@ -1,7 +1,28 @@
 </main>
-<footer class="bg-light">
-    <div class="text-center p-3" style="background:#CCCCCC">
-        Copyright &copy; 2021
+<style>
+    /* Footer Styles */
+    footer {
+        background-color: #f8f9fc;
+        padding: 1rem 0;
+        border-top: 1px solid #e3e6f0;
+        margin-top: 2rem;
+    }
+    
+    .footer-content {
+        text-align: center;
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+    
+    .footer-content p {
+        margin: 0;
+        padding: 0.5rem 0;
+    }
+</style>
+
+<footer>
+    <div class="footer-content">
+        <p>Copyright &copy; <?php echo date('Y'); ?> All Rights Reserved</p>
     </div>
 </footer>
 <script>

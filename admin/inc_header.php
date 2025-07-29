@@ -30,14 +30,267 @@ include("../inc/inc_fungsi.php");
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-    <style>
-        .image-list-content .col-lg-3 { width: 100%;}
-        .image-list-content img { float:left; width: 20%}
-        .image-list-content p { float:left; padding-left:20px}
-        .image-list-item { padding:10px 0px 10px 0px } 
-    </style>
-</head>
+<style>
+    :root {
+        --primary-color: #4e73df;
+        --secondary-color: #1cc88a;
+        --dark-color: #5a5c69;
+        --light-color: #f8f9fc;
+        --danger-color: #e74a3b;
+        --warning-color: #f6c23e;
+        --info-color: #36b9cc;
+    }
 
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fc;
+        color: var(--dark-color);
+        min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #224abe 100%);
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-brand {
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: 0.5px;
+    }
+
+    .nav-link {
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+        color: rgba(255, 255, 255, 0.85) !important;
+        transition: all 0.3s ease;
+        border-radius: 0.35rem;
+        margin: 0 0.15rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-link i {
+        margin-right: 0.5rem;
+        width: 1.2rem;
+        text-align: center;
+    }
+
+    .nav-link:hover, .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white !important;
+    }
+
+    /* Main Content */
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    main {
+        padding: 2rem;
+    }
+
+    /* Cards */
+    .card {
+        border: none;
+        border-radius: 0.35rem;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    .card-header {
+        background-color: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+        padding: 1rem 1.35rem;
+        font-weight: 700;
+        color: var(--dark-color);
+    }
+
+    /* Tables */
+    .table {
+        background-color: white;
+        border-radius: 0.35rem;
+        overflow: hidden;
+        box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        color: var(--dark-color);
+        font-weight: 700;
+        padding: 1rem;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .table td {
+        padding: 0.75rem 1rem;
+        vertical-align: middle;
+        border-top: 1px solid #e3e6f0;
+    }
+
+    .table tr:hover td {
+        background-color: #f8f9fc;
+    }
+
+    /* Buttons */
+    .btn {
+        border-radius: 0.35rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-success {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .btn-danger {
+        background-color: var(--danger-color);
+        border-color: var(--danger-color);
+    }
+
+    .btn-warning {
+        background-color: var(--warning-color);
+        border-color: var(--warning-color);
+    }
+
+    /* Alerts */
+    .alert {
+        border-radius: 0.35rem;
+        padding: 1rem 1.25rem;
+    }
+
+    /* Form Elements */
+    .form-control {
+        border-radius: 0.35rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid #d1d3e2;
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+
+    /* Footer */
+    footer {
+        background-color: #f8f9fc;
+        padding: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--dark-color);
+        text-align: center;
+        border-top: 1px solid #e3e6f0;
+        margin-top: 2rem;
+    }
+
+    /* Dashboard Cards */
+    .dashboard-card {
+        border-left: 0.25rem solid var(--primary-color);
+        transition: transform 0.3s;
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .dashboard-card .card-body {
+        padding: 1.25rem;
+    }
+
+    .dashboard-card .card-title {
+        color: var(--dark-color);
+        font-weight: 700;
+        font-size: 0.875rem;
+        text-transform: uppercase;
+    }
+
+    .dashboard-card .card-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    /* Summernote Customization */
+    .note-editor.note-frame {
+        border-radius: 0.35rem;
+        border: 1px solid #d1d3e2;
+    }
+
+    .note-editor.note-frame .note-toolbar {
+        background-color: #f8f9fc;
+        border-bottom: 1px solid #e3e6f0;
+        border-radius: 0.35rem 0.35rem 0 0;
+    }
+
+    /* Image List Customization */
+    .image-list-content .col-lg-3 {
+        width: 100%;
+    }
+
+    .image-list-content img {
+        float: left;
+        width: 20%;
+        border-radius: 0.25rem;
+    }
+
+    .image-list-content p {
+        float: left;
+        padding-left: 1rem;
+    }
+
+    .image-list-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e3e6f0;
+    }
+
+    .image-list-item:hover {
+        background-color: #f8f9fc;
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .navbar-collapse {
+            padding: 1rem 0;
+        }
+        
+        .nav-link {
+            margin: 0.25rem 0;
+        }
+        
+        main {
+            padding: 1rem;
+        }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a8a8a8;
+    }
+</style>
+</head>
 <body class="container">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -94,4 +347,4 @@ include("../inc/inc_fungsi.php");
             </div>
         </nav>
     </header>
-    <main>
+    

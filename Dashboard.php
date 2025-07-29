@@ -58,7 +58,21 @@ $stmt_riwayat = mysqli_prepare($koneksi, $sql_riwayat);
 mysqli_stmt_bind_param($stmt_riwayat, "s", $npsn);
 mysqli_stmt_execute($stmt_riwayat);
 $q = mysqli_stmt_get_result($stmt_riwayat);
+
+// Hapus semua riwayat laporan jika diminta
+if (isset($_POST['clear_riwayat'])) {
+    $sql_clear = "DELETE FROM riwayat_laporan WHERE npsn = ?";
+    $stmt_clear = mysqli_prepare($koneksi, $sql_clear);
+    mysqli_stmt_bind_param($stmt_clear, "s", $npsn);
+    mysqli_stmt_execute($stmt_clear);
+
+    // Optional: Redirect untuk refresh
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -600,16 +614,24 @@ body {
           <div class="laporan-item">
             <div class="laporan-info">
               <span class="badge fasilitas"><?php echo htmlspecialchars($row['jenis'] ?? '-'); ?></span>
-              <span class="badge status"><?php echo htmlspecialchars($row['status'] ?? 'Menunggu'); ?></span>
+              <span class="badge status"><?php echo ($row['status'] ?? 'Menunggu'); ?></span>
               <h4><?php echo htmlspecialchars($row['detail'] ?? '-'); ?></h4>
               <small><?php echo htmlspecialchars($row['created_at'] ?? ''); ?></small>
             </div>
-            <a href="detail_laporan.php?id=<?php echo htmlspecialchars($row['id'] ?? ''); ?>"><button class="btn-detail">Detail</button></a>
+<a href="admin/detail_laporan.php?npsn=<?php echo htmlspecialchars($row['npsn']); ?>">
+  <button class="btn-detail">Detail</button>
+</a>
+
           </div>
         <?php endwhile; ?>
       <?php else: ?>
         <p>Belum ada laporan.</p>
       <?php endif; ?>
+
+      <form method="post" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua riwayat laporan?');">
+  <button type="submit" name="clear_riwayat" class="theme-toggle" style="margin-top: 12px;">🗑️ Hapus Semua Riwayat</button>
+</form>
+
     </div>
   </div>
   <script>

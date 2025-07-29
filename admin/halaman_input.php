@@ -49,56 +49,210 @@ if (isset($_POST['simpan'])) {
         }
     }
 }
-
-
 ?>
-<h1>Halaman Admin Input Data</h1>
-<div class="mb-3 row">
-    <a href="halaman.php">
-        << Kembali ke halaman admin</a>
-</div>
-<?php
-if ($error) {
-?>
+<style>
+    /* Main Styles */
+    body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    /* Container */
+    .admin-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    /* Header */
+    h1 {
+        color: #2c3e50;
+        font-size: 28px;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    /* Back Link */
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s;
+    }
+    
+    .back-link:hover {
+        color: #2980b9;
+        transform: translateX(-3px);
+    }
+    
+    /* Alerts */
+    .alert {
+        padding: 12px 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        border: 1px solid transparent;
+    }
+    
+    .alert-danger {
+        background-color: #fdecea;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+    
+    .alert-primary {
+        background-color: #e7f5ff;
+        border-color: #b8daff;
+        color: #004085;
+    }
+    
+    /* Form Styles */
+    .form-row {
+        margin-bottom: 20px;
+    }
+    
+    .col-form-label {
+        font-weight: 600;
+        color: #495057;
+        padding-top: 8px;
+    }
+    
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        padding: 10px 12px;
+        transition: all 0.3s;
+        width: 100%;
+    }
+    
+    .form-control:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        outline: none;
+    }
+    
+    /* Button Styles */
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Summernote Editor */
+    .note-editor.note-frame {
+        border-radius: 4px !important;
+        border: 1px solid #ced4da !important;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .admin-container {
+            padding: 15px;
+            margin: 10px;
+        }
+        
+        .col-sm-2, .col-sm-10 {
+            width: 100%;
+            padding: 0;
+        }
+        
+        .col-form-label {
+            margin-bottom: 5px;
+            padding-top: 0;
+        }
+        
+        .btn-primary {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="admin-container">
+    <h1>Halaman Admin Input Data</h1>
+    <div class="mb-3 row">
+        <a href="halaman.php" class="back-link">
+            &laquo; Kembali ke halaman admin
+        </a>
+    </div>
+    
+    <?php if ($error): ?>
     <div class="alert alert-danger" role="alert">
         <?php echo $error ?>
     </div>
-<?php
-}
-?>
-<?php
-if ($sukses) {
-?>
+    <?php endif; ?>
+    
+    <?php if ($sukses): ?>
     <div class="alert alert-primary" role="alert">
         <?php echo $sukses ?>
     </div>
-<?php
-}
-?>
-<form action="" method="post">
-    <div class="mb-3 row">
-        <label for="judul" class="col-sm-2 col-form-label">Judul</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="judul" value="<?php echo $judul ?>" name="judul">
+    <?php endif; ?>
+    
+    <form action="" method="post">
+        <div class="mb-3 row form-row">
+            <label for="judul" class="col-sm-2 col-form-label">Judul</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="judul" value="<?php echo htmlspecialchars($judul) ?>" name="judul" required>
+            </div>
         </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="kutipan" class="col-sm-2 col-form-label">Kutipan</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="kutipan" value="<?php echo $kutipan ?>" name="kutipan">
+        
+        <div class="mb-3 row form-row">
+            <label for="kutipan" class="col-sm-2 col-form-label">Kutipan</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="kutipan" value="<?php echo htmlspecialchars($kutipan) ?>" name="kutipan">
+                <small style="color: #6c757d; font-size: 0.875em;">Kutipan singkat untuk deskripsi halaman</small>
+            </div>
         </div>
-    </div>
-    <div class="mb-3 row">
-        <label for="isi" class="col-sm-2 col-form-label">Isi</label>
-        <div class="col-sm-10">
-            <textarea name="isi" class="form-control" id="summernote"><?php echo $isi ?></textarea>
+        
+        <div class="mb-3 row form-row">
+            <label for="isi" class="col-sm-2 col-form-label">Isi</label>
+            <div class="col-sm-10">
+                <textarea name="isi" class="form-control" id="summernote" required><?php echo htmlspecialchars($isi) ?></textarea>
+            </div>
         </div>
-    </div>
-    <div class="mb-3 row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <input type="submit" name="simpan" value="Simpan Data" class="btn btn-primary" />
+        
+        <div class="mb-3 row form-row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+                <input type="submit" name="simpan" value="Simpan Data" class="btn btn-primary" />
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#summernote').summernote({
+        height: 300,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'italic', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+});
+</script>
+
 <?php include("inc_footer.php") ?>
