@@ -1,27 +1,32 @@
-    <?php
-    include_once("inc/inc_koneksi.php");
+<?php
+include_once("inc/inc_koneksi.php");
 
-    session_start();
+session_start();
 
-    // Escape input
-    $npsn       = mysqli_real_escape_string($koneksi, $_POST['npsn']);
-    $nama       = mysqli_real_escape_string($koneksi, $_POST['nama_sekolah']);
-    $alamat     = mysqli_real_escape_string($koneksi, $_POST['alamat']);
-    $kecamatan  = mysqli_real_escape_string($koneksi, $_POST['kecamatan']);
-    $kelurahan  = mysqli_real_escape_string($koneksi, $_POST['kelurahan']);
-    $status     = mysqli_real_escape_string($koneksi, $_POST['status']);
+$email_session = $_SESSION['email'] ?? '';
 
-    // Cek apakah NPSN sudah ada di daftar_sd
+// Escape input
+$npsn       = mysqli_real_escape_string($koneksi, $_POST['npsn']);
+$nama       = mysqli_real_escape_string($koneksi, $_POST['nama_sekolah']);
+$alamat     = mysqli_real_escape_string($koneksi, $_POST['alamat']);
+$kecamatan  = mysqli_real_escape_string($koneksi, $_POST['kecamatan']);
+$kelurahan  = mysqli_real_escape_string($koneksi, $_POST['kelurahan']);
+$status     = mysqli_real_escape_string($koneksi, $_POST['status']);
+
+// =============================================
+// CEK NPSN DI SEMUA TABEL SEKOLAH (SD, SMP, TK)
+// =============================================
 $sql_cek_sd = "SELECT 1 FROM daftar_sd WHERE NPSN = '$npsn'";
 $result_sd = mysqli_query($koneksi, $sql_cek_sd);
 
-// Jika tidak ada, cek ke daftar_smp
+// Jika tidak ada di SD, cek ke SMP
 if (mysqli_num_rows($result_sd) == 0) {
     $sql_cek_smp = "SELECT * FROM daftar_smp WHERE NPSN = '$npsn'";
     $result_smp = mysqli_query($koneksi, $sql_cek_smp);
+    
     if (mysqli_num_rows($result_smp) > 0) {
         $data_smp = mysqli_fetch_assoc($result_smp);
-
+        
         // Masukkan data dari SMP ke SD agar bisa lolos foreign key
         $sql_insert_sd = "INSERT INTO daftar_sd (NPSN, Nama_Sekolah, Alamat, Kecamatan, Kelurahan, Status) VALUES (
             '{$data_smp['NPSN']}', 
@@ -32,16 +37,62 @@ if (mysqli_num_rows($result_sd) == 0) {
             '{$data_smp['Status']}'
         )";
         mysqli_query($koneksi, $sql_insert_sd);
+    } else {
+        // Jika tidak ada di SMP, cek ke TK
+        $sql_cek_tk = "SELECT * FROM daftar_tk WHERE NPSN = '$npsn'";
+        $result_tk = mysqli_query($koneksi, $sql_cek_tk);
+        
+        if (mysqli_num_rows($result_tk) > 0) {
+            $data_tk = mysqli_fetch_assoc($result_tk);
+            
+            // Masukkan data dari TK ke SD agar bisa lolos foreign key
+            $sql_insert_sd = "INSERT INTO daftar_sd (NPSN, Nama_Sekolah, Alamat, Kecamatan, Kelurahan, Status) VALUES (
+                '{$data_tk['NPSN']}', 
+                '".mysqli_real_escape_string($koneksi, $data_tk['Nama_Sekolah'])."', 
+                '".mysqli_real_escape_string($koneksi, $data_tk['Alamat'])."', 
+                '".mysqli_real_escape_string($koneksi, $data_tk['Kecamatan'])."', 
+                '".mysqli_real_escape_string($koneksi, $data_tk['Kelurahan'])."', 
+                '{$data_tk['Status']}'
+            )";
+            mysqli_query($koneksi, $sql_insert_sd);
+        }
     }
 }
 
+// =============================================
+// Simpan Riwayat Laporan
+// =============================================
+$judul_laporan   = mysqli_real_escape_string($koneksi, $_POST['judul_laporan'] ?? '');
+$keterangan      = mysqli_real_escape_string($koneksi, $_POST['keterangan'] ?? '');
+$tanggal_laporan = date('Y-m-d'); 
+$biaya_estimasi  = 0; // sementara nol, nanti diupdate setelah kebutuhan_usaha masuk
 
+$sql_riwayat = "INSERT INTO riwayat_laporan (
+    npsn, 
+    nama_sekolah, 
+    email, 
+    tanggal_laporan, 
+    status, 
+    biaya_estimasi
+) VALUES (
+    '$npsn', 
+    '$nama', 
+    '$email_session',
+    '$tanggal_laporan', 
+    'Menunggu', 
+    $biaya_estimasi
+)";
+mysqli_query($koneksi, $sql_riwayat);
 
+// Ambil ID laporan yang baru dibuat
+$id_riwayat = mysqli_insert_id($koneksi);
 
+// =============================================
+// FUNGSI UNTUK UPLOAD FILE
+// =============================================
 function uploadFileArray($fileArray, $index) {
     if (isset($fileArray['name'][$index]) && $fileArray['error'][$index] == 0) {
         $targetDir = "uploads/";
-        // Pastikan folder uploads ada dan writable
         if (!is_dir($targetDir)) {
             mkdir($targetDir, 0755, true);
         }
@@ -51,51 +102,40 @@ function uploadFileArray($fileArray, $index) {
             return $targetFile;
         } else {
             error_log("Gagal upload file: " . $fileArray['tmp_name'][$index]);
-            return ""; // Kembalikan string kosong jika gagal
+            return "";
         }
     }
     return "";
 }
 
-    // Simpan ke riwayat_laporan
-    $sql_riwayat = "INSERT INTO riwayat_laporan (
-        npsn, nama_sekolah, email, jenis_laporan, judul_laporan, tanggal_laporan, status, biaya_estimasi, keterangan
-    ) VALUES (
-        '$npsn', '$nama', '$email', 'Kerusakan Fasilitas', 
-        'Kerusakan atap ruang kelas 3A akibat hujan', 
-        NOW(), 'Menunggu', 15000000, 'Ruang Kelas 3A'
-    )";
-    mysqli_query($koneksi, $sql_riwayat);
+// ======================
+// Simpan Laporan Prasarana
+// ======================
+if (isset($_POST['prasarana'])) {
+    foreach ($_POST['prasarana'] as $jenis => $data) {
+        if (isset($data['baik']) || isset($data['ringan']) || isset($data['sedang']) || isset($data['berat'])) {
+            $baik   = (int)($data['baik'] ?? 0);
+            $ringan = (int)($data['ringan'] ?? 0);
+            $sedang = (int)($data['sedang'] ?? 0);
+            $berat  = (int)($data['berat'] ?? 0);
+            $detail = mysqli_real_escape_string($koneksi, $data['detail'] ?? '');
 
-
-    // ======================
-    // Simpan Laporan Prasarana
-    // ======================
-    if (isset($_POST['prasarana'])) {
-        foreach ($_POST['prasarana'] as $jenis => $data) {
-            if (isset($data['baik']) || isset($data['ringan']) || isset($data['sedang']) || isset($data['berat'])) {
-                $baik   = (int)($data['baik'] ?? 0);
-                $ringan = (int)($data['ringan'] ?? 0);
-                $sedang = (int)($data['sedang'] ?? 0);
-                $berat  = (int)($data['berat'] ?? 0);
-                $detail = mysqli_real_escape_string($koneksi, $data['detail'] ?? '');
-
-                $sql = "INSERT INTO laporan_prasarana 
-                        (npsn, nama_sekolah, jenis, kondisi_baik, kondisi_ringan, kondisi_sedang, kondisi_berat, detail) 
-                        VALUES ('$npsn', '$nama', '$jenis', $baik, $ringan, $sedang, $berat, '$detail')";
-                if (!mysqli_query($koneksi, $sql)) {
-                    echo "❌ Gagal simpan `$jenis`: " . mysqli_error($koneksi) . "<br>";
-                } else {
-                    echo "✅ Data `$jenis` berhasil disimpan.<br>";
-                }
+            $sql = "INSERT INTO laporan_prasarana 
+                    (npsn, nama_sekolah, jenis, kondisi_baik, kondisi_ringan, kondisi_sedang, kondisi_berat, detail) 
+                    VALUES ('$npsn', '$nama', '$jenis', $baik, $ringan, $sedang, $berat, '$detail')";
+            if (!mysqli_query($koneksi, $sql)) {
+                echo "❌ Gagal simpan `$jenis`: " . mysqli_error($koneksi) . "<br>";
+            } else {
+                echo "✅ Data `$jenis` berhasil disimpan.<br>";
             }
         }
     }
+}
 
-    // ======================
-    // Simpan Laporan Sarana
-    // ======================
-  if (isset($_POST['sarana'])) {
+// ======================
+// Simpan Laporan Sarana
+// ======================
+if (isset($_POST['sarana'])) {
     foreach ($_POST['sarana'] as $jenis => $data) {
         $kondisi = mysqli_real_escape_string($koneksi, $data['kondisi'] ?? '');
         $detail = mysqli_real_escape_string($koneksi, $data['detail'] ?? '');
@@ -107,11 +147,13 @@ function uploadFileArray($fileArray, $index) {
     }
 }
 
-
-    // ======================
-    // Simpan Kebutuhan Usaha (file upload)
-    // ======================
-  $jenis_kebutuhan_list = [
+// ======================
+// Simpan Kebutuhan Usaha (file upload)
+// ======================
+// ======================
+// Simpan Kebutuhan Usaha
+// ======================
+$jenis_kebutuhan_list = [
     "Pembangunan Sarana, Prasarana dan Utilitas",
     "Penyediaan Mebel Kelas",
     "Pengadaan Ruang Kelas Baru (RKB)",
@@ -126,37 +168,55 @@ function uploadFileArray($fileArray, $index) {
     "Pembangunan Laboratorium Sekolah"
 ];
 
+$total_estimasi = 0;
+
 foreach ($jenis_kebutuhan_list as $index => $jenis) {
     $surat_permohonan = uploadFileArray($_FILES['file_surat_permohonan'], $index);
     $foto_kondisi     = uploadFileArray($_FILES['file_foto_kondisi'], $index);
     $denah_ruangan    = uploadFileArray($_FILES['file_denah_ruangan'], $index);
     $rab_kebutuhan    = uploadFileArray($_FILES['file_rab_kebutuhan'], $index);
+
     $detail           = mysqli_real_escape_string($koneksi, $_POST['kebutuhan_usaha'][$index]['detail'] ?? '');
+    $estimasi_biaya   = (int) ($_POST['kebutuhan_usaha'][$index]['biaya_estimasi'] ?? 0);
+
+    $total_estimasi += $estimasi_biaya;
 
     $sql = "INSERT INTO kebutuhan_usaha 
-        (npsn, nama_sekolah, jenis_kebutuhan, file_surat_permohonan, file_foto_kondisi, file_denah_ruangan, file_rab_kebutuhan, detail)
-        VALUES ('$npsn', '$nama', '$jenis', '$surat_permohonan', '$foto_kondisi', '$denah_ruangan', '$rab_kebutuhan', '$detail')";
+        (npsn, nama_sekolah, jenis_kebutuhan, file_surat_permohonan, file_foto_kondisi, file_denah_ruangan, file_rab_kebutuhan, detail, biaya_estimasi)
+        VALUES 
+        ('$npsn', '$nama', '$jenis', '$surat_permohonan', '$foto_kondisi', '$denah_ruangan', '$rab_kebutuhan', '$detail', '$estimasi_biaya')";
     mysqli_query($koneksi, $sql);
 }
 
-    ?>
+$update_sql = "UPDATE riwayat_laporan 
+               SET biaya_estimasi = $total_estimasi 
+               WHERE id = $id_riwayat";
+mysqli_query($koneksi, $update_sql);
+// Ambil email pengirim terbaru
+$sql_email = "SELECT email FROM riwayat_laporan WHERE npsn='$npsn' ORDER BY created_at DESC LIMIT 1";
+$result_email = mysqli_query($koneksi, $sql_email);
+$email_pengirim = "-";
+if ($result_email && mysqli_num_rows($result_email) > 0) {
+    $row_email = mysqli_fetch_assoc($result_email);
+    $email_pengirim = $row_email['email'];
+}
+?>
 
-
-    <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
+<?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
     <div class="success-msg">✅ Data berhasil dikirim!</div>
 <?php endif; ?>
 
-    <script>
-        // Redirect ke halaman dashboard setelah 3 detik
-        setTimeout(() => {
-            window.location.href = "Dashboard.php";
-        }, 3000);
-    </script>
+<script>
+    setTimeout(() => {
+        window.location.href = "Dashboard.php";
+    }, 3000);
+</script>
 
 <?php if ($_SERVER["REQUEST_METHOD"] === "POST"): ?>
   <div class="loading-screen" id="loadingScreen">
     <div class="container"><div class="line"></div></div>
     <p>Mengalihkan ke Dashboard...</p>
+    <small>Data yang anda submit akan diproses</small>
   </div>
 <?php endif; ?>
 

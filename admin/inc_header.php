@@ -331,6 +331,10 @@ include("../inc/inc_fungsi.php");
                             <a class="nav-link" href="data_laporan.php">
                                 <i class="fas fa-file-alt"></i> Laporan Sekolah
                             </a>
+                            <li class="nav-item">
+                            <a class="nav-link" href="riwayat_laporan.php">
+                                <i class="fas fa-file-alt"></i> Riwayat Laporan
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="ganti_profile.php">

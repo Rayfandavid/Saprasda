@@ -1,4 +1,15 @@
 <style>
+
+    html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#contact {
+    margin-top: auto; /* dorong footer ke bawah */
+}           
     /* Compact Footer Styles */
     #contact {
         background-color: #2c3e50;
@@ -21,34 +32,42 @@
         font-size: 1.1rem;
         margin-bottom: 15px;
         position: relative;
-        padding-bottom: 8px;
+        padding-bottom: 0px;
+        font-family: 'Arial', sans-serif;
+        font-weight: 600;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .footer-section h3::after {
         content: '';
         position: absolute;
-        left: 5px;
+        left: 0px;
         bottom: 0;
         width: 30px;
         height: 2px;
-        background-color: #e74c3c;
+        background-color: white;
     }
 
     .footer-section p,
     .footer-section address,
     .footer-section a {
         color: #ecf0f1;
-        line-height: 1.6;
+        line-height: 0;
         font-size: 0.85rem;
-        margin: 8px 0;
+        margin: 3px 0;
+        font-family: 'Arial', sans-serif;
     }
 
-    .footer-section a {
+    .footer-section h3 {
         display: block;
         transition: color 0.2s ease;
     }
 
-    .footer-section a:hover {
+    .footer-section h3:hover {
         color: #3498db;
     }
 

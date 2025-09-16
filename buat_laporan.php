@@ -148,8 +148,12 @@
       background: var(--card-bg);
       padding: 28px;
       margin-top: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px var(--shadow-color);
+      border-radius: 0px;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 20px;
+      width: 100%;
+      flex: 1;
     }
     
     .section-header {
@@ -312,7 +316,8 @@
     }
     
     input[type="number"] {
-      max-width: 120px;
+      max-width: 2000px;
+      width: 170px;
       text-align: center;
       font-weight: 600;
     }
@@ -351,10 +356,12 @@
     
     .action-bar {
       display: flex;
-      justify-content: flex-end;
+      justify-content: flex-start;
       margin-top: 30px;
+      margin-left: 80px;
       padding-top: 20px;
-      border-top: 1px dashed var(--border);
+      border-top: 2px dashed var(--border);
+      width: 89.5%;
     }
     
     footer {
@@ -864,9 +871,9 @@
       <div class="section">
         <div class="section-header">
           <h2><i class="fas fa-building"></i>Data Kebutuhan Usaha (sarana & prasarana)</h2>
-          <div class="table-scroll-hint"><i class="fas fa-arrows-left-right"></i> Geser untuk melihat lebih banyak</div>
+          <div class="table-scroll-hint"><i class="fas fa-arrows-left-right"></i>Geser untuk melihat lebih banyak</div>
         </div>
-        <div class="table-container">
+
           <table>
             <thead>
               <tr>
@@ -876,109 +883,145 @@
                 <th><span class=""></span> Denah Ruangan</th>
                 <th><span class=""></span> RAB Kebutuhan</th>
                 <th>Detail Kondisi</th>
+                <th><span class=""></span> Estimasi Biaya</th>
               </tr>
             </thead>
             <tbody>
              <tr>
+              <tr>
                 <td>Pembangunan Sarana, Prasarana dan Utilitas</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[0]" /></td>
+                <td><input type="file" name="file_foto_kondisi[0]" /></td>
+                <td><input type="file" name="file_denah_ruangan[0]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[0]" /></td>
+                <td><textarea name="kebutuhan_usaha[0][detail]" placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[0][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Penyediaan Mebel Kelas</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[1]" /></td>
+                <td><input type="file" name="file_foto_kondisi[1]" /></td>
+                <td><input type="file" name="file_denah_ruangan[1]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[1]" /></td>
+                <td><textarea name="kebutuhan_usaha[1][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[1][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Pengadaan Ruang Kelas Baru (RKB)</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[2]" /></td>
+                <td><input type="file" name="file_foto_kondisi[2]" /></td>
+                <td><input type="file" name="file_denah_ruangan[2]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[2]" /></td>
+                <td><textarea name="kebutuhan_usaha[2][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[2][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang, Berat Ruang Kelas Sekolah</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[3]" /></td>
+                <td><input type="file" name="file_foto_kondisi[3]" /></td>
+                <td><input type="file" name="file_denah_ruangan[3]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[3]" /></td>
+                <td><textarea name="kebutuhan_usaha[3][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[3][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Penyedia Alat Praktik & Peraga Peserta Didik</td>
-                <<td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[4]" /></td>
+                <td><input type="file" name="file_foto_kondisi[4]" /></td>
+                <td><input type="file" name="file_denah_ruangan[4]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[4]" /></td>
+                <td><textarea name="kebutuhan_usaha[4][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[4][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang kelas Baru</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[5]" /></td>
+                <td><input type="file" name="file_foto_kondisi[5]" /></td>
+                <td><input type="file" name="file_denah_ruangan[5]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[5]" /></td>
+                <td><textarea name="kebutuhan_usaha[5][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[5][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang Guru, Kepala Sekolah, TU</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[6]" /></td>
+                <td><input type="file" name="file_foto_kondisi[6]" /></td>
+                <td><input type="file" name="file_denah_ruangan[6]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[6]" /></td>
+                <td><textarea name="kebutuhan_usaha[6][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[6][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Pembangunan Ruang Unit Kesehatan Sekolah (UKS)</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[7]" /></td>
+                <td><input type="file" name="file_foto_kondisi[7]" /></td>
+                <td><input type="file" name="file_denah_ruangan[7]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[7]" /></td>
+                <td><textarea name="kebutuhan_usaha[7][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[7][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang Berat Ruang Unit Kesehatan Sekolah (UKS)</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[8]" /></td>
+                <td><input type="file" name="file_foto_kondisi[8]" /></td>
+                <td><input type="file" name="file_denah_ruangan[8]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[8]" /></td>
+                <td><textarea name="kebutuhan_usaha[8][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[8][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
               <tr>
                 <td>Rehabilitasi Sedang Berat Perpustakaan Sekolah</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[9]" /></td>
+                <td><input type="file" name="file_foto_kondisi[9]" /></td>
+                <td><input type="file" name="file_denah_ruangan[9]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[9]" /></td>
+                <td><textarea name="kebutuhan_usaha[9][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[9][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
                <tr>
                 <td>Pengadaan Perlengkapan Kelas</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[10]" /></td>
+                <td><input type="file" name="file_foto_kondisi[10]" /></td>
+                <td><input type="file" name="file_denah_ruangan[10]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[10]" /></td>
+                <td><textarea name="kebutuhan_usaha[10][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[10][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
                <tr>
                 <td>Pembangunan Laboratorium Sekolah</td>
-                <td><input type="file" name="file_surat_permohonan[]" /></td>
-                <td><input type="file" name="file_foto_kondisi[]" /></td>
-                <td><input type="file" name="file_denah_ruangan[]" /></td>
-                <td><input type="file" name="file_rab_kebutuhan[]" /></td>
-                <td><textarea name="kebutuhan_usaha[0][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="file" name="file_surat_permohonan[11]" /></td>
+                <td><input type="file" name="file_foto_kondisi[11]" /></td>
+                <td><input type="file" name="file_denah_ruangan[11]" /></td>
+                <td><input type="file" name="file_rab_kebutuhan[11]" /></td>
+                <td><textarea name="kebutuhan_usaha[11][detail]"  placeholder="Catat Detail..."></textarea></td>
+                <td><input type="number" name="kebutuhan_usaha[11][biaya_estimasi]" placeholder="Estimasi Biaya (Rp)" /></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
+
+      
+
+<script>
+function hitungTotalEstimasi() {
+    let total = 0;
+    // ambil semua input estimasi biaya di tabel kebutuhan_usaha
+    document.querySelectorAll('input[name^="kebutuhan_usaha"][name$="[estimasi_biaya]"]').forEach(el => {
+        let val = parseInt(el.value) || 0;
+        total += val;
+    });
+    document.getElementById('total_estimasi').value = total;
+}
+
+// jalankan saat user mengetik angka
+document.addEventListener('input', function(e) {
+    if (e.target.matches('input[name^="kebutuhan_usaha"][name$="[estimasi_biaya]"]')) {
+        hitungTotalEstimasi();
+    }
+});
+</script>
+
 
 
       <div class="action-bar">
@@ -993,7 +1036,6 @@
     </form>
 
   </div>
-
        <div class="theme-toggle-container">
     <button class="theme-toggle" id="themeToggle">
       <i class="fas fa-moon" id="themeIcon"></i>

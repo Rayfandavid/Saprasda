@@ -12,33 +12,60 @@ include_once("inc/inc_fungsi.php");
 </head>
 <body>
     <style>
-    /* Compact Navbar Styles */
+    /* Professional Navbar Styles */
     :root {
-        --primary-color: #2c3e50;
-        --secondary-color: #3498db;
+        --primary-color: #1a365d;
+        --secondary-color: #2b6cb0;
+        --accent-color: #4299e1;
         --text-light: #ffffff;
-        --transition-speed: 0.2s;
+        --background-light: #ffffff;
+        --text-dark: #2d3748;
+        --shadow-light: 0 2px 15px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition-speed: 0.3s;
     }
     
     nav {
         background-color: var(--primary-color);
-        position: sticky;
+        position: fixed;
         top: 0;
-        z-index: 1000;
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        left: 0;
         width: 100%;
-        height: 60px; /* Reduced height */
+        z-index: 1000;
+        box-shadow: var(--shadow-light);
+        transition: all var(--transition-speed) ease;
+        height: 60px;
+    }
+    
+    nav.scrolled {
+        background-color: var(--background-light);
+        box-shadow: var(--shadow-medium);
+        height: 60px;
+    }
+    
+    nav.scrolled .logo a,
+    nav.scrolled .menu li a {
+        color: var(--text-dark);
+    }
+    
+    nav.scrolled .menu li a:hover {
+        color: var(--secondary-color);
+        background-color: rgba(43, 108, 176, 0.05);
+    }
+    
+    nav.scrolled .menu-toggle span {
+        background-color: var(--text-dark);
     }
     
     .wrapper {
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 15px;
+        padding: 0 20px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 60px;
+        height: 100%;
     }
     
     nav .logo {
@@ -47,36 +74,61 @@ include_once("inc/inc_fungsi.php");
     }
     
     nav .logo a {
+        display: flex;
         align-items: center;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         font-weight: 600;
         color: white;
         text-decoration: none;
-        transition: opacity var(--transition-speed) ease;
-        font-family: 'Arial', sans-serif;
-        transition-property: all;
+        transition: all var(--transition-speed) ease;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    nav.scrolled .logo a:hover {
+        color: var(--secondary-color);
     }
     
     nav .logo-img {
         width: 40px;
         height: 40px;
         object-fit: contain;
-        margin-right: 10px;
+        margin-right: 12px;
+        transition: all var(--transition-speed) ease;
+    }
+    
+    nav.scrolled .logo-img {
+        width: 36px;
+        height: 36px;
     }
     
     .menu-toggle {
         display: none;
         cursor: pointer;
         padding: 8px;
+        flex-direction: column;
+        justify-content: center;
     }
     
     .menu-toggle span {
         display: block;
-        width: 22px;
+        width: 25px;
         height: 2px;
         background-color: var(--text-light);
-        margin: 4px 0;
+        margin: 3px 0;
         transition: all 0.3s ease;
+        transform-origin: center;
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
     
     .menu {
@@ -89,16 +141,16 @@ include_once("inc/inc_fungsi.php");
         margin: 0;
         padding: 0;
         align-items: center;
-        gap: 12px;
+        gap: 5px;
     }
     
     .menu li a {
         color: white;
         text-decoration: none;
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 500;
-        padding: 8px 12px;
-        border-radius: 3px;
+        padding: 10px 15px;
+        border-radius: 4px;
         transition: all var(--transition-speed) ease;
     }
     
@@ -108,32 +160,45 @@ include_once("inc/inc_fungsi.php");
     
     .tbl-biru {
         background: var(--secondary-color);
-        border-radius: 3px;
-        padding: 8px 16px;
-        font-size: 0.85rem;
+        border-radius: 4px;
+        padding: 10px 18px;
+        font-size: 0.9rem;
         font-weight: 500;
         transition: all var(--transition-speed) ease;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-left: 10px;
     }
     
     .tbl-biru:hover {
-        background: #2980b9;
-        transform: none;
-        box-shadow: none;
+        background: var(--accent-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    nav.scrolled .tbl-biru {
+        background: var(--secondary-color);
+        color: white;
+    }
+    
+    nav.scrolled .tbl-biru:hover {
+        background: var(--accent-color);
     }
     
     /* Mobile Styles */
-    @media (max-width: 1200px) {
+    @media (max-width: 992px) {
         .wrapper {
-            padding: 0 10px;
+            padding: 0 15px;
         }
         
         .menu-toggle {
-            display: block;
+            display: flex;
         }
         
         .menu {
             position: absolute;
-            top: 60px;
+            top: 100%;
             left: 0;
             width: 100%;
             background: var(--primary-color);
@@ -141,69 +206,83 @@ include_once("inc/inc_fungsi.php");
             align-items: stretch;
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.4s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav.scrolled .menu {
+            background: var(--background-light);
         }
         
         .menu.active {
-            max-height: 400px;
-            padding: 10px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 500px;
         }
         
         .menu ul {
             flex-direction: column;
-            gap: 5px;
-            padding: 0 15px;
+            gap: 0;
+            padding: 10px 20px;
         }
         
         .menu li {
             width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled .menu li {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .menu li:last-child {
+            border-bottom: none;
         }
         
         .menu li a {
             display: block;
-            padding: 10px 15px;
+            padding: 12px 15px;
+        }
+        
+        nav.scrolled .menu li a {
+            color: var(--text-dark);
         }
         
         .tbl-biru {
             width: 100%;
             text-align: center;
-            margin-top: 5px;
+            margin: 10px 0 5px 0;
         }
     }
 
-    @media (max-width: 362px) {
-        .menu-toggle span {
-            width: 18px;
-            height: 2px;
-        }
-        
-        .menu li a {
-            font-size: 0.8rem;
-            padding: 6px 10px;
-        }
-        
-        .tbl-biru {
-            font-size: 0.8rem;
-            padding: 6px 12px;
-        }
-
+    @media (max-width: 480px) {
         nav .logo a {
-            font-size: 0.85rem;
-            padding: 0 5px;
-            display: relative;
+            font-size: 0.95rem;
+        }
+        
+        nav .logo-img {
+            width: 32px;
+            height: 32px;
+            margin-right: 8px;
+        }
+        
+        nav.scrolled .logo-img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        .menu-toggle span {
+            width: 22px;
         }
     }
 </style>
 
-<nav>
+<nav id="navbar">
     <div class="wrapper">
         <div class="logo">
             <img src="<?php echo url_dasar()?>/gambar/dissih.png" alt="Logo" class="logo-img">
-            <a href="<?php echo url_dasar()?>">Sistem Sarana Prasana (Sissarpras)</a> <!-- Shortened name -->
+            <a href="<?php echo url_dasar()?>">Sissarpras</a>
         </div>
         
-        <div class="menu-toggle" onclick="toggleMenu()">
+        <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
             <span></span>
@@ -229,14 +308,36 @@ include_once("inc/inc_fungsi.php");
 </nav>
 
 <script>
+    // Toggle mobile menu
     function toggleMenu() {
         const menu = document.getElementById('mainMenu');
+        const menuToggle = document.getElementById('menuToggle');
         menu.classList.toggle('active');
-        
-        // Toggle hamburger animation
-        const spans = document.querySelectorAll('.menu-toggle span');
-        spans.forEach(span => {
-            span.classList.toggle('active');
-        });
+        menuToggle.classList.toggle('active');
     }
+    
+    document.getElementById('menuToggle').addEventListener('click', toggleMenu);
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+    
+    // Close menu when clicking on a link (mobile)
+    const menuLinks = document.querySelectorAll('.menu a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const menu = document.getElementById('mainMenu');
+            const menuToggle = document.getElementById('menuToggle');
+            if (menu.classList.contains('active')) {
+                menu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            }
+        });
+    });
 </script>

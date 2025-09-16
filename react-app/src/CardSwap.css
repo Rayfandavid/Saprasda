@@ -1,0 +1,23 @@
+.card-swap-container {
+  position: relative;
+  perspective: 1000px;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.red-card { background: #e74c3c; }
+.green-card { background: #2ecc71; }
+.blue-card { background: #3498db; }
+.yellow-card { background: #f1c40f; }

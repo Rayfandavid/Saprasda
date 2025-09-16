@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
     
     <div class="register-link">
-        Belum punya akun? <a href="register.php">Daftar disini</a>
+        Belum punya akun? <a href="form_input_npsn.php">Daftar disini</a>
     </div>
 </div>
 </body>

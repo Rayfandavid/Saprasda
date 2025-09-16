@@ -137,6 +137,34 @@ function ambil_isi_info($id,$kolom){
     return $r1[$kolom];
 }
 
+function get_bidang_tutor($id) {
+    global $koneksi;
+    $sql = "SELECT bidang FROM tutors WHERE id = '$id'";
+    $q = mysqli_query($koneksi, $sql);
+    $r = mysqli_fetch_array($q);
+    return $r['bidang'] ?? 'Tidak Diketahui';
+}
+
+function tampilkan_kartu_tutor($r) {
+    $id     = $r['id'];
+    $nama   = htmlspecialchars($r['nama']);
+    $bidang = htmlspecialchars($r['bidang'] ?? 'Pendidikan');
+    $foto   = tutors_foto($id);
+    $link   = buat_link_tutors($id);
+
+    $html = '<div class="tutor-card">';
+    $html .= '<a href="' . $link . '">';
+    $html .= '<img src="' . url_dasar() . '/gambar/' . $foto . '" alt="Foto Tutor" class="tutor-img">';
+    $html .= '<h4 class="tutor-nama">' . $nama . '</h4>';
+    $html .= '<p class="tutor-bidang">' . $bidang . '</p>';
+    $html .= '</a>';
+    $html .= '</div>';
+
+    return $html;
+}
+
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;

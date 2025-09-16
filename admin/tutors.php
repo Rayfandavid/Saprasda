@@ -244,9 +244,10 @@ if ($sukses) {
 <table class="table table-striped">
     <thead>
         <tr>
-            <th class="col-1">#</th>
+            <th class="col-1">No</th>
             <th class="col-2">Foto</th>
             <th>Nama</th>
+            <th>Email</th>
             <th class="col-2">Aksi</th>
         </tr>
     </thead>
@@ -278,15 +279,15 @@ if ($sukses) {
                 <td><?php echo $nomor++ ?></td>
                 <td><img src="../gambar/<?php echo tutors_foto($r1['id'])?>" style="max-height:100px;max-width:100px"/></td>
                 <td><?php echo $r1['nama'] ?></td>
-                <td>
-                    <a href="tutors_input.php?id=<?php echo $r1['id']?>">
-                        <span class="badge bg-warning text-dark">Edit</span>
-                    </a>
-
-                    <a href="tutors.php?op=delete&id=<?php echo $r1['id'] ?>" onclick="return confirm('Apakah yakin mau hapus data bro?')">
-                        <span class="badge bg-danger">Delete</span>
-                    </a>
-                </td>
+<td><?php echo $r1['email'] ?? '-' ?></td>
+<td>
+    <a href="tutors_input.php?id=<?php echo $r1['id']?>">
+        <span class="badge bg-warning text-dark">Edit</span>
+    </a>
+    <a href="tutors.php?op=delete&id=<?php echo $r1['id'] ?>" onclick="return confirm('Apakah yakin mau hapus data bro?')">
+        <span class="badge bg-danger">Delete</span>
+    </a>
+</td>
             </tr>
         <?php
         }

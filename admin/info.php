@@ -26,6 +26,7 @@ if ($op == 'delete') {
 }
 ?>
 <style>
+
     /* Main Content Styles */
     .main-content {
         padding: 2rem;
@@ -33,6 +34,7 @@ if ($op == 'delete') {
         border-radius: 0.35rem;
         box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
         margin-bottom: 2rem;
+        margin-left: 1200px;
     }
     
     /* Page Header */
@@ -239,7 +241,7 @@ if ($sukses) {
 <table class="table table-striped">
     <thead>
         <tr>
-            <th class="col-1">#</th>
+            <th class="col-1">No</th>
             <th>Judul</th>
             <th class="col-2">Aksi</th>
         </tr>

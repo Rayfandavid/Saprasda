@@ -3,6 +3,7 @@
 $nama       = "";
 $isi        = "";
 $foto       = "";
+$email      = $r1['email'] ?? '';
 $foto_name  = "";
 $error      = "";
 $sukses     = "";
@@ -20,6 +21,7 @@ if($id != ""){
     $nama   = $r1['nama'];
     $isi    = $r1['isi'];
     $foto   = $r1['foto'];
+    $email  = $r1['email'] ?? '';
 
     if($isi == ''){
         $error  = "Data tidak ditemukan";
@@ -28,6 +30,8 @@ if($id != ""){
 
 if (isset($_POST['simpan'])) {
     $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $foto = $r1['foto'] ?? '';
     $isi  = $_POST['isi'];
 
     if ($nama == '' or $isi == '') {
@@ -59,9 +63,9 @@ if (isset($_POST['simpan'])) {
         }
 
         if($id != ""){
-            $sql1 = "update tutors set nama = '$nama',foto='$foto_name',isi='$isi',tgl_isi=now() where id = '$id'";
+            $sql1 = "update tutors set nama = '$nama', email='$email', foto='$foto_name', isi='$isi', tgl_isi=now() where id = '$id'";
         }else{
-            $sql1 = "insert into tutors(nama,foto,isi) values ('$nama','$foto_name','$isi')";
+            $sql1 = "insert into tutors(nama,email,foto,isi) values ('$nama','$email','$foto_name','$isi')";
         }
         
         $q1 = mysqli_query($koneksi, $sql1);
@@ -256,6 +260,13 @@ if (isset($_POST['simpan'])) {
                 <input type="text" class="form-control" id="nama" value="<?php echo htmlspecialchars($nama) ?>" name="nama" required>
             </div>
         </div>
+
+        <div class="mb-3 row form-row">
+    <label for="email" class="col-sm-2 col-form-label">Email Tutor</label>
+    <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email) ?>" required>
+    </div>
+</div>
         
         <div class="mb-3 row form-row">
             <label for="foto" class="col-sm-2 col-form-label">Foto Profil</label>
